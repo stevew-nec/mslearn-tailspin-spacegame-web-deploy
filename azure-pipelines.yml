@@ -70,6 +70,7 @@ stages:
   dependsOn: Build
   jobs:
   - deployment: Deploy
+    displayName: 'Job to deploy to dev'
     pool:
       vmImage: 'ubuntu-20.04'
     environment: dev
@@ -93,6 +94,7 @@ stages:
   dependsOn: Dev
   jobs:
   - deployment: Deploy
+    displayName: 'Job to deploy to test'
     pool:
       vmImage: 'ubuntu-20.04'
     environment: test
@@ -116,6 +118,7 @@ stages:
   dependsOn: Test
   jobs:
   - deployment: Deploy
+    displayName: 'Job to deploy to staging'
     pool:
       vmImage: 'ubuntu-20.04'
     environment: staging
@@ -128,7 +131,7 @@ stages:
           - download: current
             artifact: drop
           - task: AzureWebApp@1
-            displayName: 'Azure App Service Deploy: website'
+            displayName: 'Task to deploy to staging slot'
             inputs:
               azureSubscription: 'Resource Manager - Tailspin - Space Game'
               deployToSlotOrASE: 'true'
